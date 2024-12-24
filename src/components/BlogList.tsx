@@ -7,7 +7,7 @@ export async function BlogList() {
   return (
     <div className="blog-list">
         {posts.map((post) => (
-            <Link href={`/blog/${post.id}`} className="blog-list-item">
+            <Link href={`/blog/${post.id}`} key={post.id} className="blog-list-item">
                 <div className="blog-list-item-img"><img src={`https://firebasestorage.googleapis.com/v0/b/exapp-admin.firebasestorage.app/o/${post.id}%2F01.webp?alt=media`} alt="" width={600} height={200}/></div>
                 <div className="blog-list-item-content">
                     <h2 className="blog-list-item-title">{post.title.length < 26 ? post.title : post.title.substring(0, 26) + "…" }</h2>
