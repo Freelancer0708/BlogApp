@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/mysql";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params; // 非同期解決は不要
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params; // 非同期解決は不要
 
   try {
     const sql = `
@@ -24,8 +24,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const { title, thumbnail, content, categoryId, status } = await req.json();
 
   try {
