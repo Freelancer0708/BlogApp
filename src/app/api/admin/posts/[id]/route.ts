@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/mysql";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(context: { params: { id: string } }) {
+  const { id } = context.params;
 
   try {
     const sql = `
