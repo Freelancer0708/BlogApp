@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/mysql";
-import type { NextRequest } from "next/server";
 
-// Next.jsの型に従ったAPIルート定義
-export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
-  const { id } = params;
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params; // 非同期解決は不要
 
   try {
     const sql = `
@@ -26,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: Record<string,
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: Record<string, string> }) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   const { title, thumbnail, content, categoryId, status } = await req.json();
 
