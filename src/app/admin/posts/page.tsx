@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
-  const router = useRouter();
 
   useEffect(() => {
     // 記事データを取得

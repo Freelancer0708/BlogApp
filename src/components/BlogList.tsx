@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchBlogPosts } from "@/services/fetchBlogPosts";
 import { BlogPost } from "@/types/BlogPost";
+import Image from "next/image";
 
 export async function BlogList() {
   const posts: BlogPost[] = await fetchBlogPosts();
@@ -13,7 +14,7 @@ export async function BlogList() {
       {posts.map((post) => (
         <Link href={`/blog/${post.id}`} key={post.id} className="blog-list-item">
           <div className="blog-list-item-img">
-            <img
+            <Image
               src={post.thumbnail || "http://localhost:8081/uploads/default-thumbnail.webp"} // サムネイルがない場合の代替画像
               alt={post.title}
               width={600}

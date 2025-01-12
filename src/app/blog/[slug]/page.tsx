@@ -1,4 +1,5 @@
 import { query } from "@/lib/mysql";
+import Image from "next/image";
 
 interface BlogProps {
   params: { slug: string }; // `params`の型定義
@@ -40,7 +41,7 @@ export default async function BlogSingle({ params }: BlogProps) {
       </div>
       <div className="blog-single-content">
         <div className="blog-thumbnail">
-          <img src={post.thumbnail} alt={post.title} width={600} height={400} />
+          <Image src={post.thumbnail} alt={post.title} width={600} height={400} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
