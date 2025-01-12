@@ -11,6 +11,7 @@ export async function isAuthenticated() {
     jwt.verify(token, process.env.JWT_SECRET!);
     return true;
   } catch (error) {
+    console.error("Authentication error:", error);
     return false;
   }
 }

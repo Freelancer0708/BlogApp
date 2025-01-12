@@ -1,6 +1,13 @@
 import { query } from "@/lib/mysql";
 import Image from "next/image";
 
+interface BlogPost {
+  title: string;
+  content: string;
+  thumbnail: string;
+  updated_at: string;
+}
+
 interface BlogProps {
   params: { slug: string }; // `params`の型定義
 }
@@ -15,7 +22,7 @@ export default async function BlogSingle({ params }: BlogProps) {
     WHERE id = ?
     LIMIT 1
   `;
-  const results: any = await query(sql, [slug]);
+  const results:BlogPost[] = await query(sql, [slug]);
 
   if (results.length === 0) {
     return <div>Post not found</div>; // データが見つからない場合
