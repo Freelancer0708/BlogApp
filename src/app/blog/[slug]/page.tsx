@@ -9,7 +9,7 @@ interface BlogPost {
 }
 
 interface BlogProps {
-  params: { slug: string }; // `params`の型定義
+  params: Promise<{ slug: string }>; // `params`の型定義
 }
 
 export default async function BlogSingle({ params }: BlogProps) {
