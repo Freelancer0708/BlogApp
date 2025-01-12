@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/mysql";
 
-export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
-  const { id } = await context.params; // 非同期に解決
+export async function GET(req: Request, context: { params: { id: string } }) {
+  const { id } = context.params;
 
   try {
     const sql = `
@@ -24,24 +24,22 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
   }
 }
 
+export async function PUT(req: Request, context: { params: { id: string } }) {
+  const { id } = context.params;
+  const { title, thumbnail, content, categoryId, status } = await req.json();
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-    const { id } = await params;
-    const { title, thumbnail, content, categoryId, status } = await req.json();
-  
-    try {
-      const sql = `
-        UPDATE posts
-        SET title = ?, thumbnail = ?, content = ?, category_id = ?, status = ?
-        WHERE id = ?
-      `;
-      const values = [title, thumbnail, content, categoryId || null, status, id];
-      await query(sql, values);
-  
-      return NextResponse.json({ message: "Post updated successfully" });
-    } catch (error) {
-      console.error("Error updating post:", error);
-      return NextResponse.json({ message: "Failed to update post" }, { status: 500 });
-    }
+  try {
+    const sql = `
+      UPDATE posts
+      SET title = ?, thumbnail = ?, content = ?, category_id = ?, status = ?
+      WHERE id = ?
+    `;
+    const values = [title, thumbnail, content, categoryId || null, status, id];
+    await query(sql, values);
+
+    return NextResponse.json({ message: "Post updated successfully" });
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return NextResponse.json({ message: "Failed to update post" }, { status: 500 });
   }
-  
+}
