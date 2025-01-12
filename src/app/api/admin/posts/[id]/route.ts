@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/mysql";
+import type { NextRequest } from "next/server";
 
-export async function GET(context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  const { id } = params;
 
   try {
     const sql = `
@@ -24,8 +25,8 @@ export async function GET(context: { params: { id: string } }) {
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  const { id } = params;
   const { title, thumbnail, content, categoryId, status } = await req.json();
 
   try {
