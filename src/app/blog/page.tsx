@@ -1,7 +1,6 @@
 import { query } from "@/lib/mysql";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactElement } from "react";
 
 interface BlogPost {
   id: number;
@@ -11,14 +10,14 @@ interface BlogPost {
   updated_at: string | Date;
 }
 
-export default async function Blog(): Promise<ReactElement> {
+export default async function Blog() {
     const sql = `
       SELECT id, title, content, thumbnail, updated_at
       FROM posts
       WHERE status = 'published'
       ORDER BY updated_at DESC
     `;
-    const posts = await query<BlogPost>(sql);
+    const posts: BlogPost[] = await query(sql);
     const stripHtmlTags = (input: string) => {
       const withoutHtml = input.replace(/<\/?[^>]+(>|$)/g, ""); // HTMLタグを削除
       return withoutHtml.replace(/\r?\n|\r/g, " "); // 改行をスペースに置換
