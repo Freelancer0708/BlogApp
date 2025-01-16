@@ -15,7 +15,7 @@ export async function BlogList() {
         <Link href={`/blog/${post.id}`} key={post.id} className="blog-list-item">
           <div className="blog-list-item-img">
             <Image
-              src={post.thumbnail || "http://localhost:8081/uploads/default-thumbnail.webp"} // サムネイルがない場合の代替画像
+              src={post.thumbnail || "https://blog-app-pied-one.vercel.app/uploads/default-thumbnail.webp"} // サムネイルがない場合の代替画像
               alt={post.title}
               width={600}
               height={200}
