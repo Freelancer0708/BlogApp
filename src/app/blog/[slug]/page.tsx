@@ -2,9 +2,11 @@ import { query } from "@/lib/mysql";
 import Image from "next/image";
 
 interface BlogPost {
+  id: number;
   title: string;
   content: string;
   thumbnail: string;
+  status: string;
   updated_at: string;
 }
 
@@ -17,18 +19,21 @@ export default async function BlogSingle({ params }: BlogProps) {
 
   // MySQLから記事データを取得
   const sql = `
-    SELECT title, content, thumbnail, updated_at
+    SELECT id, title, content, thumbnail, status, updated_at
     FROM posts
     WHERE id = ?
     LIMIT 1
   `;
   const results:BlogPost[] = await query(sql, [slug]);
-
-  if (results.length === 0) {
-    return <div>Post not found</div>; // データが見つからない場合
-  }
-
   const post = results[0];
+
+  if (results.length === 0 || post.status !== "published") {
+    return (
+      <div className="container blog">
+        <h1>Post not found</h1>
+      </div>
+    );
+  }
 
   const updated_at = new Date(post.updated_at).getFullYear().toString().padStart(2, '0') +
     "/" +
