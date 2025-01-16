@@ -11,10 +11,6 @@ interface BlogPost {
   updated_at: string | Date;
 }
 
-interface BlogProps {
-  params: Promise<{ slug: string }>; // `params`の型定義
-}
-
 export default async function Blog(): Promise<ReactElement> {
     const sql = `
       SELECT id, title, content, thumbnail, updated_at
