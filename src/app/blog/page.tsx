@@ -10,6 +10,8 @@ interface BlogPost {
   updated_at: string | Date;
 }
 
+export const dynamic = 'force-dynamic'; // 動的レンダリングを強制
+
 export default async function Blog() {
     const sql = `
       SELECT id, title, content, thumbnail, updated_at
