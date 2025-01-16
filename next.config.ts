@@ -1,15 +1,8 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '8081',
-        pathname: '/uploads/**',
-      },
-    ],
+    domains: ['blog-app-pied-one.vercel.app'], // 必要なホスト名を追加
   },
 };
 
